@@ -1,0 +1,5 @@
+.env
+figures/eda_cz.png
+data/clean/*
+data/raw/*
+test.py
