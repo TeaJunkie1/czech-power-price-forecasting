@@ -9,11 +9,15 @@ OUT.mkdir(parents=True, exist_ok=True)
 cz = pd.read_parquet(CLEAN / "CZ_hourly_with_fc.parquet")
 de = pd.read_parquet(CLEAN / "DE_hourly_with_fc.parquet")
 
-# fill short gaps in the DE forecasts (document in DECISIONS.md)
-de_cols = ["load_fc", "wind_fc", "solar_fc", "residual_load_fc"]
-de[de_cols] = de[de_cols].interpolate(method="time", limit=6)
-assert de[de_cols].isna().sum().sum() == 0, "DE forecast gap longer than 6 hours, inspect manually"
+# DE forecast gaps: short ones by interpolation, full-day gaps by same hour one week earlier
+de["load_fc"] = de["load_fc"].interpolate(method="time", limit=2)    # DST single hours
+de["load_fc"] = de["load_fc"].fillna(de["load_fc"].shift(168))       # the two missing days
+de[["wind_fc", "solar_fc"]] = de[["wind_fc", "solar_fc"]].interpolate(method="time", limit=6)
 
+# rebuild residual load, because it carried the NaNs from load_fc
+de["residual_load_fc"] = de["load_fc"] - de["wind_fc"].fillna(0) - de["solar_fc"].fillna(0)
+
+assert de[["load_fc", "wind_fc", "solar_fc", "residual_load_fc"]].isna().sum().sum() == 0
 X = pd.DataFrame(index=cz.index)
 X["price"] = cz["price"]                                    # target
 
