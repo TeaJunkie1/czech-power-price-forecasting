@@ -4,3 +4,5 @@ data/clean/*
 data/raw/*
 test.py
 data/features/*
+.venv/
+__pycache__/
