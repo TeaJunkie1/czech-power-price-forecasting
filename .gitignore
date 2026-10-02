@@ -6,3 +6,4 @@ test.py
 data/features/*
 .venv/
 __pycache__/
+data/results/*

@@ -69,7 +69,9 @@ for label, a, b in HYP:
     res.append(r)
 res = pd.DataFrame(res).set_index("hypothesis")
 res["p_holm"] = holm(res["p"].to_numpy())
-res["supported"] = (res["mean_diff"] < 0) & (res["p_holm"] < 0.05)
+res["supported"] = ((res["mean_diff"] < 0) & (res["p_holm"] < 0.05)
+                    & (res["boot_hi"] < 0) & (res["rel_change"] <= -0.01))
+res["contradicted"] = (res["mean_diff"] > 0) & (res["p_holm"] < 0.05)
 print("CONFIRMATORY (negative mean_diff = A better; Holm-adjusted over 5 tests)")
 print(res[["A", "B", "mean_diff", "rel_change", "ci_lo", "ci_hi", "boot_lo", "boot_hi", "p", "p_holm", "supported"]].round(4))
 
