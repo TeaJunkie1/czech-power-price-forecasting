@@ -16,7 +16,7 @@ for country in ["CZ", "DE"]:
     n_missing = df["price"].isna().sum()
 
     df["price"] = df["price"].interpolate(method="time", limit=3)   # fill short gaps only
-    assert df["price"].isna().sum() == 0, "gap longer than 3 hours, inspect manually"
+    assert df["price"].isna().sum() == 0, "gap longer than 3 hours"
 
     df.to_parquet(OUT / f"{country}_hourly_final.parquet")
     print(f"{country}: filled {n_missing} prices, {len(df)} rows, "
@@ -38,8 +38,8 @@ print(pd.read_parquet("data/clean/CZ_hourly.parquet")["load"].isna().mean())
 for c in ["CZ", "DE"]:
     df = pd.read_parquet(f"data/clean/{c}_hourly_with_fc.parquet")
     print(c, df[["load", "load_fc"]].isna().sum().to_dict(),
-          "| MAE load_fc:", round((df["load_fc"] - df["load"]).abs().mean(), 1), "MW",
-          "| solar mean:", round(df["solar"].mean(), 1))
+          " MAE load_fc:", round((df["load_fc"] - df["load"]).abs().mean(), 1), "MW",
+          "solar mean:", round(df["solar"].mean(), 1))
 import pandas as pd
 for name in ["hourly", "hourly_final", "hourly_with_fc"]:
     df = pd.read_parquet(f"data/clean/CZ_{name}.parquet")

@@ -3,3 +3,8 @@ figures/eda_cz.png
 data/clean/*
 data/raw/*
 test.py
+data/features/*
+.venv/
+__pycache__/
+data/results/*
+!data/results/run_tests_output.txt

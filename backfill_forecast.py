@@ -33,12 +33,6 @@ for country in ["CZ", "DE"]:
     df = final.join(fc, how="left")
     df.to_parquet(OUT / f"{country}_hourly_with_fc.parquet")
 
-    print(f"\n{country}: {df.shape}")
-    print("missing share:\n", df[["load_fc", "wind_fc", "solar_fc"]].isna().mean().round(4))
-    print("rows per local year:\n", df.tz_convert("Europe/Prague").groupby(lambda t: t.year).size())
     # sanity check: how close are the forecasts to the actuals?
     load_mae = (df["load_fc"] - df["load"]).abs().mean()
     solar_mae = (df["solar_fc"] - df["solar"]).abs().mean()
-
-    print(f"MAE load_fc vs load: {load_mae:.1f} MW")
-    print(f"MAE solar_fc vs solar: {solar_mae:.1f} MW")
