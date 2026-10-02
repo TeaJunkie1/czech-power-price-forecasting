@@ -1,0 +1,69 @@
+H1 hourly price relationship by year
+       corr_level  share_equal_price
+year                               
+2022       0.974              0.483
+2023       0.905              0.293
+2024       0.917              0.144
+2025       0.922              0.104
+H1 correlation of DAILY CHANGES: 0.916  block-bootstrap 95% CI [0.892, 0.935]
+ADF p (CZ daily mean, H0 = unit root): 0.0302
+KPSS p (CZ daily mean, H0 = stationary): 0.0100
+Engle-Granger cointegration p (CZ vs DE daily means): 0.0000
+SCORES period          2023   2024  2025    all
+model                                   
+base_cz         7.22   6.98  5.58   6.60
+full            7.39   6.50  4.67   6.19
+full_no_resid   7.17   5.91  4.70   5.93
+full_regime     7.26   6.49  4.65   6.14
+naive_bands    11.24  10.12  9.30  10.22
+no_lags        39.87  17.29  8.74  21.96
+90% COVERAGE period          2023   2024   2025    all
+model                                    
+base_cz        0.781  0.727  0.833  0.780
+full           0.667  0.643  0.785  0.698
+full_no_resid  0.704  0.730  0.816  0.750
+full_regime    0.668  0.631  0.787  0.695
+naive_bands    0.999  0.982  0.970  0.984
+no_lags        0.259  0.464  0.910  0.544
+90% WIDTH period          2023   2024   2025    all
+model                                    
+base_cz         72.0   61.5   66.2   66.5
+full            59.0   46.9   49.2   51.7
+full_no_resid   64.2   50.5   53.2   55.9
+full_regime     56.2   45.3   49.1   50.2
+naive_bands    316.2  229.9  196.3  247.4
+no_lags        123.1  141.5  142.4  135.6
+CALIBRATION TESTS (90% interval)
+               violation_rate  kupiec_p  christoffersen_ind_p
+naive_bands            0.0165       0.0                0.0006
+base_cz                0.2198       0.0                0.0000
+full                   0.3016       0.0                0.0000
+full_no_resid          0.2500       0.0                0.0000
+no_lags                0.4560       0.0                0.0000
+full_regime            0.3047       0.0                0.0000
+RELIABILITY (observed share below each quantile; target = the quantile level)
+      naive_bands   full  full_regime
+0.05        0.008  0.221        0.225
+0.10        0.031  0.315        0.331
+0.25        0.160  0.453        0.460
+0.50        0.498  0.630        0.629
+0.75        0.844  0.766        0.766
+0.90        0.970  0.865        0.866
+0.95        0.992  0.919        0.921
+CONFIRMATORY (negative mean_diff = A better; Holm-adjusted over 5 tests)
+                                    A              B  mean_diff  rel_change    ci_lo    ci_hi  boot_lo  boot_hi       p  p_holm  supported
+hypothesis                                                                                                                                
+H2 German forecasts help         full        base_cz    -0.4103     -0.0622  -0.8937   0.0732  -0.8469   0.0900  0.0962  0.1882      False
+H3 Residual load helps           full  full_no_resid     0.2592      0.0437   0.0182   0.5002   0.0454   0.5087  0.0350  0.1051      False
+H4 Recent prices matter          full        no_lags   -15.7775     -0.7184 -19.4037 -12.1512 -19.2220 -12.5692  0.0000  0.0000       True
+H5 Regimes help           full_regime           full    -0.0503     -0.0081  -0.1092   0.0086  -0.1050   0.0100  0.0941  0.1882      False
+H6 Beats naive baseline          full    naive_bands    -4.0345     -0.3947  -4.6438  -3.4252  -4.6006  -3.4240  0.0000  0.0000       True
+BY YEAR (exploratory, unadjusted p-values)
+                         rel_change                    p              
+year                           2023   2024   2025   2023   2024   2025
+hypothesis                                                            
+H2 German forecasts help      0.023 -0.069 -0.163  0.779  0.232  0.000
+H3 Residual load helps        0.030  0.100 -0.007  0.478  0.002  0.542
+H4 Recent prices matter      -0.815 -0.624 -0.465  0.000  0.000  0.000
+H5 Regimes help              -0.017 -0.002 -0.003  0.084  0.819  0.470
+H6 Beats naive baseline      -0.343 -0.358 -0.498  0.000  0.000  0.000

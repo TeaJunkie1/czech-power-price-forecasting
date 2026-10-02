@@ -2,7 +2,9 @@ import numpy as np
 import pandas as pd
 from statsmodels.tsa.stattools import adfuller, kpss, coint
 from evaluation import *
+import warnings
 
+warnings.filterwarnings('ignore')
 pd.set_option("display.width", 200)
 
 #  H1: are CZ and DE prices linked 

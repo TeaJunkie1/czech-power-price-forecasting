@@ -7,3 +7,4 @@ data/features/*
 .venv/
 __pycache__/
 data/results/*
+!data/results/run_tests_output.txt
